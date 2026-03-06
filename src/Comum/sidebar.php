@@ -1,7 +1,7 @@
   <!--  <div class="wrapper"> -->
         <aside id="sidebar">
                 <div class="sidebar_logo">   
-                    <img src="img/logo.png" class="mb-1" height="70" width="70" >
+                    <img src="/../img/logo.png" class="mb-1" height="70" width="70" >
                     <a class="sidebar-item-logo">
                     <span>Surubins Code</span>
                     </a>
@@ -257,7 +257,7 @@
                             </a>
                             <ul id="multi-Usuarios" class="sidebar-dropdown list-unstyled collapse">
                                 <li class="sidebar-item">
-                                    <a href="CadUsu.php" class="sidebar-link">Cadastro</a>
+                                    <a href="./src/pages/CadUsu.php" class="sidebar-link">Cadastro</a>
                                 </li>
                                 <li class="sidebar-item">
                                     <a href="#" class="sidebar-link">Privilégios</a>
