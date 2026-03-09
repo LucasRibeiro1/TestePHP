@@ -11,7 +11,7 @@
         }elseif (isset($_POST['update'])){
             $userController->update($_POST['nome'],$_POST['usuario'],$_POST['senha'],$_POST['email'],$_POST['empresa'],$_POST['privilegio'],$_POST['permissao']);
         }elseif (isset($_POST['delete'])){
-            $userController->create($_POST['id']);
+            $userController->delete($_POST['id']);
     }
     }
     $users = $userController->inicio();
@@ -30,8 +30,8 @@
 <link rel="stylesheet" href="/../Paginas/style.css">
 </head>
 <body>
+    <?php include '../comum/navibar.php'; ?>
     <div class="wrapper">
-        <?php include '../Comum/sidebar.php'; ?>
         <div class="main p-3">
                 <h1> 
                      <div class="container">
@@ -96,33 +96,42 @@
                                 <h3>Lista de Usuários</h3>
                             </div>
                             <div class="card-body">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>USUÁRIO</th>
-                                        <th>NOME</th>
-                                        <th>EMAIL</th>
-                                        <th>EMPRESA</th>
-                                        <th>PRIVILEGIO</th>
-                                        <th>PERMISSAO</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                <?php foreach ($users as $user): ?>
-                                    <tr>
-                                        <td><?= $user['id'] ?></td>
-                                        <td><?= $user['usuario'] ?></td>
-                                        <td><?= $user['nome'] ?></td>
-                                        <td><?= $user['email'] ?></td>
-                                        <td><?= $user['empresa'] ?></td>
-                                        <td><?= $user['privilegio'] ?></td>
-                                        <td><?= $user['permissao'] ?></td>
-                                    </tr>
-                                <?php endforeach ?>
-                                </tbody>
-                            <div class="card-grid">
-
-                                </div>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>USUÁRIO</th>
+                                            <th>NOME</th>
+                                            <th>EMAIL</th>
+                                            <th>EMPRESA</th>
+                                            <th>PRIVILEGIO</th>
+                                            <th>PERMISSAO</th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                        <br>
+                                    </thead>
+                                    <tbody>
+                                    <?php foreach ($users as $user): ?>
+                                        <tr>
+                                            <td><?= $user['id'] ?></td>
+                                            <td><?= $user['usuario'] ?></td>
+                                            <td><?= $user['nome'] ?></td>
+                                            <td><?= $user['email'] ?></td>
+                                            <td><?= $user['empresa'] ?></td>
+                                            <td><?= $user['privilegio'] ?></td>
+                                            <td><?= $user['permissao'] ?></td>
+                                            <td>
+                                            <button type="button" class="btn btn-primary btn-sm">Editar</button>
+                                        <form style="display: inline;" method="POST">
+                                            <input type="hidden" name="id" value="<?=$user['id']?>">
+                                            <button type="submit" name="delete" class="btn btn-danger btn-sm" method="POST">Excluir</button></td>
+                                        </form>
+                                        </tr>
+                                        <br>
+                                    <?php endforeach ?>
+                                    </tbody>
+                                </table>   
                             </div>
                         </div>
                     </div>

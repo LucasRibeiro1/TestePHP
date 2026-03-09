@@ -13,7 +13,7 @@
             </div>
             <ul class="sidebar-nav">
                 <li class="sidebar-item">
-                    <a href="inicio.php" class="sidebar-link">
+                    <a href="/./Prod_OS/inicio.php" class="sidebar-link">
                         <i class="lni lni-user-4"></i>
                         <span>Inicio</span>
                     </a>
@@ -174,7 +174,7 @@
                             </a>
                             <ul id="multi-Produtos" class="sidebar-dropdown list-unstyled collapse">
                                 <li class="sidebar-item">
-                                    <a href="cadProd.php" class="sidebar-link">Manutenção</a>
+                                    <a href="src/pages/cadProd.php" class="sidebar-link">Manutenção</a>
                                 </li>
                                 <li class="sidebar-item">
                                     <a href="#" class="sidebar-link">Lista</a>
@@ -252,18 +252,9 @@
                     </a>
                     <ul id="multi-Configurador" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#multi-Usuarios" aria-expanded="false" aria-controls="multi-two">
+                            <a href="./src/pages/CadUsu.php" class="sidebar-link">
                                 Usuários
                             </a>
-                            <ul id="multi-Usuarios" class="sidebar-dropdown list-unstyled collapse">
-                                <li class="sidebar-item">
-                                    <a href="./src/pages/CadUsu.php" class="sidebar-link">Cadastro</a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="#" class="sidebar-link">Privilégios</a>
-                                </li>
-
-                            </ul>
                         </li>
                         <li class="sidebar-item">
                             <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#multi-Permissoes" aria-expanded="false" aria-controls="multi-two">
