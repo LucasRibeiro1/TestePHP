@@ -1,3 +1,20 @@
+<?php
+
+if($_SERVER['REQUEST_METHOD'] === 'POST'){
+        if(isset($_POST['sair'])){
+            session_start();
+            session_unset();
+            session_destroy();
+
+            header('location: src/pages/PagLogin.php');
+
+        }
+    }
+
+?>
+
+
+
   <!--  <div class="wrapper"> -->
         <aside id="sidebar">
                 <div class="sidebar_logo">   
@@ -330,10 +347,12 @@
                 </li>
             </ul>
             <div class="sidebar-footer">
-                <a href="login.php" class="sidebar-link">
+                <form style="display: inline;" method="POST">
+                <button type="submit" class="sidebar-link" name="sair" method="POST">
                     <i class="lni lni-exit"></i>
                     <span>logout</span>
-                </a>
+                </button>
+                </form>
             </div>
         </aside>
 <!--    </div> -->

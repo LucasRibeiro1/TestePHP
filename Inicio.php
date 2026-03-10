@@ -1,4 +1,12 @@
+<?php
 
+session_start();
+
+if (!isset($_SESSION['usuario_id'])){
+    header('location: src/pages/PagLogin.php');
+}
+
+?>
 
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="dark">
@@ -18,7 +26,7 @@
             <div class="main p-3">
                     <div class="text-center">
                         <h1>
-                            Surubins Code
+                            Seja bem vindo,<?=$_SESSION['usuario_nome'] ?>
                         </h1>
                     </div>
                 </div>

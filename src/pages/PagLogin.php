@@ -1,3 +1,8 @@
+<?php
+
+session_start();
+
+?>
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="dark">
 <head>
@@ -21,17 +26,25 @@
                     <h3>Login</h3>
                 </div>
                 <div class="card-body">
-                    <form>
+                    <form action="../classes/login.php" method="POST">
                         <label>Usuário</label>
-                            <input type="text" placeholder="Usuário" class="form-control">
+                            <input type="text" placeholder="Usuário" class="form-control" name="usuario">
                             <br><label>Senha</label>
-                            <input type="password" placeholder="Senha" class="form-control">
+                            <input type="password" placeholder="Senha" class="form-control" name="senha">
                             <br>
                             
-                            <button class="btn btn-primary">
-                                <a href="../../inicio.php">Acessar</a>
-                            </button>
+                            <button type="submit" name="login" class="btn btn-sm btn-success">Entrar</button>
                     </form>
+                    <?php
+
+                    if (isset($_SESSION['erro_login'])) {
+                        echo "" .$_SESSION['erro_login']." ";
+                        unset($_SESSION['erro_login']);
+                    }
+
+
+                    ?>
+
                 </div>
             </div>
 
