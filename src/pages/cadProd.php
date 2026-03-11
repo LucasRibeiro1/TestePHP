@@ -1,3 +1,22 @@
+<?php
+
+    require_once __DIR__ . '/../../config/conexao.php';
+    require_once __DIR__ . '/../controllers/ProdController.php';
+
+    $prodController = new ProdController($pdo);
+
+    if($_SERVER['REQUEST_METHOD'] === 'POST'){
+        if(isset($_POST['create'])){
+            $prodController->create($_POST['nome'],$_POST['valor'],$_POST['tipo'],$_POST['unidade'],$_POST['fabricante'],$_POST['classificacao'],$_POST['qtdini']);
+        }elseif (isset($_POST['update'])){
+            $prodController->update($_POST['nome'],$_POST['valor'],$_POST['tipo'],$_POST['unidade'],$_POST['fabricante'],$_POST['classificacao'],$_POST['saldo']);
+        }elseif (isset($_POST['delete'])){
+            $prodController->delete($_POST['id']);
+    }
+    }
+    $prods = $prodController->inicio();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,39 +40,39 @@
                                 <h3>Cadastro de Produtos</h3>
                             </div>
                             <div class="card-body">
-                                <form>
+                                <form id="createform" method="POST">
                                     <div class="row g-3 align-items-center">
                                             <div class="form-group col-md-3">
-                                                <label>Usuário</label>
-                                                <input type="text" placeholder="Usuário" class="form-control">
+                                                <label>Nome</label>
+                                                <input type="text" placeholder="Nome" class="form-control" name="nome">
                                             </div>
                                             <div class="form-group col-md-3">
-                                                <label>Senha</label>
-                                                <input type="password" placeholder="Senha" class="form-control">
+                                                <label>Valor</label>
+                                                <input type="text" placeholder="Valor" class="form-control" name="valor">
                                             </div>
                                     </div><br>
                                     <div class="row g-3 align-items-center"><br>
                                         <div class="form-group col-md-4">
-                                            <label>Nome</label>
-                                            <input type="text" placeholder="Nome" class="form-control">
+                                            <label>Tipo</label>
+                                            <input type="text" placeholder="Tipo" class="form-control" name="tipo">
                                         </div>
                                         <div class="form-group col-md-4">
-                                            <label>Email</label>
-                                            <input type="email" placeholder="email" class="form-control">
+                                            <label>Unidade</label>
+                                            <input type="text" placeholder="Unidade" class="form-control" name="unidade">
                                         </div>
                                         <div class="form-group col-md-4">
-                                            <label>Empresa</label>
-                                            <input type="text" placeholder="Empresa" class="form-control">
+                                            <label>Fabricante</label>
+                                            <input type="text" placeholder="Fabricante" class="form-control" name="fabricante">
                                         </div>
                                     </div><br>
                                     <div class="row g-3 align-items-center">
                                         <div class="form-group col-md-3">   
-                                            <label>Privilégios</label>
-                                            <input type="number" placeholder="Privilégios" class="form-control">
+                                            <label>Classificação</label>
+                                            <input type="text" placeholder="Classificacao" class="form-control" name="classificacao">
                                         </div>
                                         <div class="form-group col-md-3">
-                                            <label>Permissão</label>
-                                            <input type="number" placeholder="Permissao" class="form-control">
+                                            <label>Quantidade Inicial</label>
+                                            <input type="number" placeholder="QTD.Inicial" class="form-control" name="qtdini">
                                         </div>
                                     </div>
                                     <div class="form-check form-check-reverse">
@@ -61,9 +80,7 @@
                                         <input type="checkbox"  class="form-check-input">
                                     </div><br>
                                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                        <a href="Inicio.html" class="btn btn-primary" >Salvar</a>
-                                        <a href="Inicio.html" class="btn btn-warning" >Editar</a>
-                                        <a href="Inicio.html" class="btn btn-danger" >Cancelar</a>
+                                        <button type="submit" name="create" class="btn btn-sm btn-success">Adicionar</button>
                                     </div>
                                 </form>
                                 <div class="card-grid">
@@ -73,6 +90,53 @@
                         </div>
                     </div>
                 </h1>
+                <div class="container">
+                        <div class="card" id="formulario-cadastro">
+                            <div class="card-header">
+                                <h3>Lista de Usuários</h3>
+                            </div>
+                            <div class="card-body">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>NOME</th>
+                                            <th>SALDO</th>
+                                            <th>VALOR</th>
+                                            <th>TIPO</th>
+                                            <th>UNIDADE</th>
+                                            <th>FABRICANTE</th>
+                                            <th>CALSSIFICAÇÃO</th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                        <br>
+                                    </thead>
+                                    <tbody>
+                                    <?php foreach ($prods as $user): ?>
+                                        <tr>
+                                            <td><?= $prod['id'] ?></td>
+                                            <td><?= $prod['nome'] ?></td>
+                                            <td><?= $prod['saldo'] ?></td>
+                                            <td><?= $prod['valor'] ?></td>
+                                            <td><?= $prod['tipo'] ?></td>
+                                            <td><?= $prod['unidade'] ?></td>
+                                            <td><?= $prod['fabricante'] ?></td>
+                                            <td><?= $prod['classificacao'] ?></td>
+                                            <td>
+                                            <button type="button" class="btn btn-primary btn-sm">Editar</button>
+                                        <form style="display: inline;" method="POST">
+                                            <input type="hidden" name="id" value="<?=$user['id']?>">
+                                            <button type="submit" name="delete" class="btn btn-danger btn-sm" method="POST">Excluir</button></td>
+                                        </form>
+                                        </tr>
+                                        <br>
+                                    <?php endforeach ?>
+                                    </tbody>
+                                </table>   
+                            </div>
+                        </div>
+                    </div>
             </div> 
         </div>
 </body>
