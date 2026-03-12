@@ -54,7 +54,10 @@
                                     <div class="row g-3 align-items-center"><br>
                                         <div class="form-group col-md-4">
                                             <label>Tipo</label>
-                                            <input type="text" placeholder="Tipo" class="form-control" name="tipo">
+                                            <select placeholder="Tipo" class="form-control" name="tipo">
+                                                <option value="Servico">Servico</option>
+                                                <option value="Produto">Produto</option>
+                                            </select>
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label>Unidade</label>
