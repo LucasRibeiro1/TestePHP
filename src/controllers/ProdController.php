@@ -2,11 +2,11 @@
 
 	require_once __Dir__ . '/../classes/Prod.php';
 
-	class UserController{
+	class ProdController{
 		private $prod;
 
 		public function __construct($pdo){
-			$this->prod = new User($pdo);	
+			$this->prod = new Prod($pdo);	
 		}
 
 		public function inicio(){

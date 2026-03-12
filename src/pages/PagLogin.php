@@ -39,7 +39,7 @@ session_start();
 
                     if (isset($_SESSION['erro_login'])) {
                         echo "" .$_SESSION['erro_login']." ";
-                        //<script>alert('Operação realizada com sucesso!');</script>
+                        //echo "<script>alert('Operação realizada com sucesso!');</script>"
                         unset($_SESSION['erro_login']);
                     }
 
