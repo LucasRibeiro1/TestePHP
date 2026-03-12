@@ -7,10 +7,10 @@ class Prod{
 		$this->pdo = $pdo;
 	}
 
-	public function create($nome,$valor,$tipo,$unidade,$fabricante,$classificacao,$qtdini){
+	public function create($nome,$valor,$tipo,$unidade,$fabricante,$classificacao,$saldo){
 
 
-	$sql = "INSERT INTO cadprod(nome,valor,tipo,unidade,fabricante,classificacao,saldo) VALUES (:nome,:valor,:tipo,:unidade,:fabricante,:classificacao,:qtdini)";
+	$sql = "INSERT INTO cadprod(nome,valor,tipo,unidade,fabricante,classificacao,saldo) VALUES (:nome,:valor,:tipo,:unidade,:fabricante,:classificacao,:saldo)";
 	$stmt = $this->pdo->prepare($sql);
 	$stmt->execute(['nome'=> $nome,'valor'=> $valor,'tipo'=> $tipo,'unidade'=> $unidade,'fabricante'=> $fabricante,'classificacao'=> $classificacao,'saldo'=> $saldo]);
 	}

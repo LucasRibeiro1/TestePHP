@@ -113,7 +113,7 @@
                                         <br>
                                     </thead>
                                     <tbody>
-                                    <?php foreach ($prods as $user): ?>
+                                    <?php foreach ($prods as $prod): ?>
                                         <tr>
                                             <td><?= $prod['id'] ?></td>
                                             <td><?= $prod['nome'] ?></td>
@@ -126,7 +126,7 @@
                                             <td>
                                             <button type="button" class="btn btn-primary btn-sm">Editar</button>
                                         <form style="display: inline;" method="POST">
-                                            <input type="hidden" name="id" value="<?=$user['id']?>">
+                                            <input type="hidden" name="id" value="<?=$prod['id']?>">
                                             <button type="submit" name="delete" class="btn btn-danger btn-sm" method="POST">Excluir</button></td>
                                         </form>
                                         </tr>
