@@ -27,7 +27,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdn.lineicons.com/5.0/lineicons.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="/../Paginas/style.css">
+<link rel="stylesheet" href="../../Paginas/style.css">
 </head>
 <body>
     <?php include '../comum/navibar.php'; ?>
@@ -96,7 +96,7 @@
                 <div class="container">
                         <div class="card" id="formulario-cadastro">
                             <div class="card-header">
-                                <h3>Lista de Usuários</h3>
+                                <h3>Lista de Produtos</h3>
                             </div>
                             <div class="card-body">
                                 <table class="table">

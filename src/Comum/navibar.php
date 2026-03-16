@@ -73,7 +73,7 @@
   </ul>
 </div>
   <div class="sidebar_logo">   
-      <img src="/../img/logo.png" class="mb-1" height="70" width="70" >
+      <img src="../../img/logo.png" class="mb-1" height="70" width="70" >
         <a class="sidebar-item-logo">
           <span>Surubins Code</span>
         </a>
