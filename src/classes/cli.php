@@ -9,9 +9,9 @@ class Cli{
 
 	public function create($nome,$cnpjcpf,$email,$cidade,$endereco,$bairro,$uf,$tel,$tipo,$dtini,$acesso,$obs){
 
-	$sql = "INSERT INTO cadcliente(nome, usuario, senha, email, empresa, privilegio, permissao) VALUES (:nome, :usuario, :senha, :email, :empresa, :privilegio, :permissao)";
+	$sql = "INSERT INTO cadcliente(nome, cnpjcpf, email, cidade, endereco, bairro, uf, tel, tipo, dtini, acesso, obs) VALUES (:nome, :cnpjcpf, :email, :cidade, :endereco, :bairro, :uf, :tel, :tipo, :dtini, :acesso, :obs)";
 	$stmt = $this->pdo->prepare($sql);
-	$stmt->execute(['nome'=> $nome,'usuario'=> $usuario,'senha'=> $senhahash,'email'=> $email,'empresa'=> $empresa,'privilegio'=> $privilegio,'permissao'=> $permissao]);
+	$stmt->execute(['nome'=> $nome,'cnpjcpf'=> $cnpjcpf,'email'=> $email,'cidade'=> $cidade,'endereco'=> $endereco,'bairro'=> $bairro,'uf'=> $uf,'tel'=> $tel,'tipo'=> $tipo,'dtini'=> $dtini,'acesso'=> $acesso,'obs'=> $obs]);
 	}
 
 	public function read(){
@@ -20,10 +20,10 @@ class Cli{
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
 
-	public function update($id,$nome,$usuario,$senha,$email,$empresa,$privilegio,$permissao){
-		$sql = "UPDATE cadcliente SET nome = :nome, usuario = :usuario, senha= :senha, email= :email, empresa= :empresa, privilegio= :privilegio, permissao= :permissao WHERE id = $id ";
+	public function update($id,$nome,$cnpjcpf,$email,$cidade,$endereco,$bairro,$uf,$tel,$tipo,$dtini,$acesso,$obs){
+		$sql = "UPDATE cadcliente SET nome = :nome, cnpjcpf = :cnpjcpf, email= :email, cidade= :cidade, endereco= :endereco, bairro= :bairro, uf= :uf, tel= :tel, tipo= :tipo, dtini= :dtini, acesso= :acesso, obs= :obs WHERE id = :id";
 		$stmt = $this->pdo->prepare($sql);
-		$stmt->execute(['nome'=>$nome,'usuario'=>$usuario,'senha'=>$senha,'email'=>$email,'empresa'=>$empresa,'privilegio'=>$privilegio,'permissao'=>$permissao]);
+		$stmt->execute(['id'=>$id,'nome'=>$nome,'cnpjcpf'=>$cnpjcpf,'email'=>$email,'cidade'=>$cidade,'endereco'=>$endereco,'bairro'=>$bairro,'uf'=>$uf,'tel'=>$tel,'tipo'=>$tipo,'dtini'=>$dtini,'acesso'=>$acesso,'obs'=>$obs]);
 	}
 
 	public function delete($id){

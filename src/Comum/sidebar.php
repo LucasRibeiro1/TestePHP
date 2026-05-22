@@ -163,7 +163,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                             </a>
                             <ul id="multi-Clientes" class="sidebar-dropdown list-unstyled collapse">
                                 <li class="sidebar-item">
-                                    <a href="./src/pages/cadCli.php" class="sidebar-link collapsed">Manutenção</a>
+                                    <a href="./src/pages/CadCliteste.php" class="sidebar-link collapsed">Manutenção</a>
                                 </li>
                                 <li class="sidebar-item">
                                     <a href="#" class="sidebar-link">Lista</a>

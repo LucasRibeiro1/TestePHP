@@ -10,7 +10,7 @@
             $cliController->create($_POST['nome'],$_POST['cnpjcpf'],$_POST['email'],$_POST['cid'],$_POST['end'],$_POST['bairro'],$_POST['uf'],$_POST['tel'],$_POST['tipo'],$_POST['dtini'],$_POST['acesso'],$_POST['obs']);
         }elseif (isset($_POST['update'])){
             $cliController->update($_POST['nome'],$_POST['cnpjcpf'],$_POST['email'],$_POST['cid'],$_POST['end'],$_POST['bairro'],$_POST['uf'],$_POST['tel'],$_POST['tipo'],$_POST['dtini'],$_POST['acesso'],$_POST['obs']);
-        }elseif (isset($_POST['delete'])){
+        }elseif (isset($_POST['delete'])){ 
             $cliController->delete($_POST['id']);
     }
     }
