@@ -24,7 +24,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                     </a>
                 </div>
             <div class="d-flex">
-                <button id="toggle-btn" type="button">
+                <button id="toggle-btn" type="button" class="sidebar-link">
                     <i class="lni lni-menu-cheesburger"></i>
                 </button>
             </div>
@@ -163,7 +163,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                             </a>
                             <ul id="multi-Clientes" class="sidebar-dropdown list-unstyled collapse">
                                 <li class="sidebar-item">
-                                    <a href="./src/pages/CadCliteste.php" class="sidebar-link collapsed">Manutenção</a>
+                                    <a href="./src/pages/cadcli/CadCliteste.php" class="sidebar-link collapsed">Manutenção</a>
                                 </li>
                                 <li class="sidebar-item">
                                     <a href="#" class="sidebar-link">Lista</a>
@@ -177,7 +177,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                             </a>
                             <ul id="multi-Fornecedor" class="sidebar-dropdown list-unstyled collapse">
                                 <li class="sidebar-item">
-                                    <a href="Cadforn.php" class="sidebar-link">Manutenção</a>
+                                    <a href="./src/pages/cadforn/Cadforn.php" class="sidebar-link">Manutenção</a>
                                 </li>
                                 <li class="sidebar-item">
                                     <a href="#" class="sidebar-link">Lista</a>
@@ -191,24 +191,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                             </a>
                             <ul id="multi-Produtos" class="sidebar-dropdown list-unstyled collapse">
                                 <li class="sidebar-item">
-                                    <a href="src/pages/cadProd.php" class="sidebar-link">Manutenção</a>
+                                    <a href="./src/pages/cadprod/cadProd.php" class="sidebar-link">Manutenção</a>
                                 </li>
                                 <li class="sidebar-item">
                                     <a href="#" class="sidebar-link">Lista</a>
-                                </li>
-
-                            </ul>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#multi-Serviços" aria-expanded="false" aria-controls="multi-two">
-                                Serviços
-                            </a>
-                            <ul id="multi-Serviços" class="sidebar-dropdown list-unstyled collapse">
-                                <li class="sidebar-item">
-                                    <a href="#" class="sidebar-link">Manutenção</a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="#" class="sidebar-link">link 2</a>
                                 </li>
 
                             </ul>
@@ -269,7 +255,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                     </a>
                     <ul id="multi-Configurador" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                         <li class="sidebar-item">
-                            <a href="./src/pages/CadUsu.php" class="sidebar-link">
+                            <a href="./src/pages/cadusu/CadUsu.php" class="sidebar-link">
                                 Usuários
                             </a>
                         </li>

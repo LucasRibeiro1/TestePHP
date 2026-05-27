@@ -1,6 +1,6 @@
 <?php
 
-    require_once __DIR__ . '/../../config/conexao.php';
+    require_once __DIR__ . '/../../../config/conexao.php';
     require_once __DIR__ . '/../controllers/CliController.php';
 
     $cliController = new cliController($pdo);

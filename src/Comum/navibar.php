@@ -1,9 +1,9 @@
 <!-- Image and text -->
 
-<nav class="navbar navbar-light" style="background-color: #0e2238;">
+<nav class="navbar navbar-light navbar-custom">
 
 <div class="btn-group ">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="toggle-btn" data-bs-toggle="dropdown" data-bs-auto-close="false" aria-expanded="false">
+  <button class="btn btn-navbar dropdown-toggle" type="button" id="toggle-btn" data-bs-toggle="dropdown" data-bs-auto-close="false" aria-expanded="false">
       <i class="lni lni-menu-cheesburger"></i>
   </button>
   <ul class="dropdown-menu" aria-labelledby="toggle-btn">
@@ -73,12 +73,12 @@
   </ul>
 </div>
   <div class="sidebar_logo">   
-      <img src="../../img/logo.png" class="mb-1" height="70" width="70" >
+      <img src="./img/logo.png" class="mb-1" height="70" width="70" >
         <a class="sidebar-item-logo">
           <span>Surubins Code</span>
         </a>
   </div>
   <li class="sidebar-item">
-    <a href="../../inicio.php" class="btn btn-danger">Voltar</a>
+    <a href="../../../inicio.php" class="btn btn-danger">Voltar</a>
  </li>
 </nav>
