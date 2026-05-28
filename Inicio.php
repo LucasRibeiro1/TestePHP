@@ -628,6 +628,31 @@ if (!isset($_SESSION['usuario_id'])){
 
         .cal-loading.show { display: flex; }
 
+        /* ── Botão de logout ──────────────────────────────────────── */
+        .btn-logout {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            background: rgba(239, 68, 68, 0.12);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #fca5a5;
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 0.45rem 1rem;
+            border-radius: 10px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.25s ease;
+        }
+
+        .btn-logout:hover {
+            background: rgba(239, 68, 68, 0.28);
+            border-color: rgba(239, 68, 68, 0.6);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(239, 68, 68, 0.3);
+        }
+
         /* ── Responsive ───────────────────────────────────────────── */
         @media (max-width: 576px) {
             .welcome-hero {
@@ -640,7 +665,7 @@ if (!isset($_SESSION['usuario_id'])){
 </head>
 <body>
     <div class="wrapper">
-        <?php include 'src/Comum/sidebar.php'; ?>
+        <?php //include 'src/Comum/sidebar.php'; ?>
 
         <div class="main p-3 p-md-4">
 
@@ -655,8 +680,13 @@ if (!isset($_SESSION['usuario_id'])){
                         <p>Bem-vindo de volta ao painel de gestão.</p>
                         <p class="hero-time" id="heroTime"></p>
                     </div>
-                    <div class="hero-logo">
-                        <i class="lni lni-dashboard"></i>
+                    <div class="d-flex flex-column align-items-center gap-2">
+                        <div class="hero-logo">
+                            <i class="lni lni-dashboard"></i>
+                        </div>
+                        <a href="src/pages/logout.php" class="btn-logout" id="btnLogout" title="Sair do sistema">
+                            <i class="fa fa-sign-out"></i> Sair
+                        </a>
                     </div>
                 </div>
             </div>
@@ -701,20 +731,20 @@ if (!isset($_SESSION['usuario_id'])){
             <p class="section-title"><i class="fa fa-th-large" style="margin-right:6px; color:#2563eb;"></i> Acesso Rápido</p>
             <div class="row g-3 mb-2">
                 <div class="col-12 col-sm-6 col-lg-3">
-                    <a href="./src/pages/cadcli/CadCliteste.php" class="quick-card">
-                        <div class="quick-icon blue"><i class="fa fa-users"></i></div>
+                    <a href="./src/pages/agenda/AGENDA.php" class="quick-card">
+                        <div class="quick-icon blue"><i class="fa fa-calendar"></i></div>
                         <div>
-                            <p class="quick-name">Clientes</p>
-                            <p class="quick-desc">Cadastro e manutenção</p>
+                            <p class="quick-name">Agendamento</p>
+                            <p class="quick-desc">Agenda e compromissos</p>
                         </div>
                     </a>
                 </div>
                 <div class="col-12 col-sm-6 col-lg-3">
-                    <a href="./src/pages/cadprod/cadProd.php" class="quick-card">
-                        <div class="quick-icon green"><i class="fa fa-cubes"></i></div>
+                    <a href="./src/pages/os/OS.php" class="quick-card">
+                        <div class="quick-icon green"><i class="fa fa-file-text-o"></i></div>
                         <div>
-                            <p class="quick-name">Produtos</p>
-                            <p class="quick-desc">Estoque e valores</p>
+                            <p class="quick-name">Ordem de Serviço</p>
+                            <p class="quick-desc">Serviços abertos</p>
                         </div>
                     </a>
                 </div>
@@ -728,16 +758,91 @@ if (!isset($_SESSION['usuario_id'])){
                     </a>
                 </div>
                 <div class="col-12 col-sm-6 col-lg-3">
-                    <a href="./src/pages/cadusu/CadUsu.php" class="quick-card">
-                        <div class="quick-icon orange"><i class="fa fa-user-circle"></i></div>
+                    <a href="./src/pages/config/configurador.php" class="quick-card">
+                        <div class="quick-icon orange"><i class="fa fa-cogs"></i></div>
                         <div>
-                            <p class="quick-name">Usuários</p>
-                            <p class="quick-desc">Gestão de acesso</p>
+                            <p class="quick-name">Configurador</p>
+                            <p class="quick-desc">Configurador do sistema</p>
                         </div>
                     </a>
                 </div>
             </div>
-
+            <div class="row g-3 mb-2">
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <a href="./src/pages/fin/fin.php" class="quick-card">
+                        <div class="quick-icon blue"><i class="fa fa-dollar"></i></div>
+                        <div>
+                            <p class="quick-name">Fluxo de Caixa</p>
+                            <p class="quick-desc">Contas a pagar e receber</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <a href="./src/pages/vendas/Vendas.php" class="quick-card">
+                        <div class="quick-icon green"><i class="fa fa-check"></i></div>
+                        <div>
+                            <p class="quick-name">Vendas</p>
+                            <p class="quick-desc">Vendas realizadas</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <a href="./src/pages/cadcli/CadCliteste.php" class="quick-card">
+                        <div class="quick-icon purple"><i class="fa fa-users"></i></div>
+                        <div>
+                            <p class="quick-name">Clientes</p>
+                            <p class="quick-desc">Cadastro e manutenção</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <a href="./src/pages/cadusu/CadUsu.php" class="quick-card">
+                        <div class="quick-icon orange"><i class="fa fa-user"></i></div>
+                        <div>
+                            <p class="quick-name">Usuários</p>
+                            <p class="quick-desc">Cadastro de usuários</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="row g-3 mb-2">
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <a href="./src/pages/estoque/Estoque.php" class="quick-card">
+                        <div class="quick-icon blue"><i class="fa fa-cubes"></i></div>
+                        <div>
+                            <p class="quick-name">Estoque</p>
+                            <p class="quick-desc">Estoque e valores</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <a href="./src/pages/cadcom/compras.php" class="quick-card">
+                        <div class="quick-icon green"><i class="fa fa-shopping-cart"></i></div>
+                        <div>
+                            <p class="quick-name">Compras</p>
+                            <p class="quick-desc">Compras realizadas</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <a href="./src/pages/cadprod/cadProd.php" class="quick-card">
+                        <div class="quick-icon purple"><i class="fa fa-cubes"></i></div>
+                        <div>
+                            <p class="quick-name">Produtos</p>
+                            <p class="quick-desc">Cadastro de produtos</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <a href="./src/pages/perfil/perfil.php" class="quick-card">
+                        <div class="quick-icon orange"><i class="fa fa-user-o"></i></div>
+                        <div>
+                            <p class="quick-name">Perfil</p>
+                            <p class="quick-desc">Perfil de usuário</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
             <!-- ══════════════════════════════════════════════════════
                  AGENDA DE ATENDIMENTOS
             ══════════════════════════════════════════════════════ -->
