@@ -246,11 +246,395 @@ if (!isset($_SESSION['usuario_id'])){
             margin-top: 0.5rem;
         }
 
+        /* ════════════════════════════════════════════════════════════
+           CALENDÁRIO / AGENDA
+        ════════════════════════════════════════════════════════════ */
+
+        .agenda-wrapper {
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+            border: 1px solid #e9f0f8;
+            overflow: hidden;
+            margin-top: 2rem;
+        }
+
+        /* ── Header do calendário ─────────────────────────────────── */
+        .cal-header {
+            background: linear-gradient(135deg, #071424 0%, #0e2238 50%, #1a3a5c 100%);
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .cal-header h2 {
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 700;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .cal-nav {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .cal-nav-btn {
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.15);
+            background: rgba(255,255,255,0.08);
+            color: #fff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            font-size: 0.85rem;
+        }
+
+        .cal-nav-btn:hover { background: rgba(255,255,255,0.18); }
+
+        .cal-month-label {
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.95rem;
+            min-width: 160px;
+            text-align: center;
+        }
+
+        .btn-novo-agend {
+            background: linear-gradient(135deg, #2563eb, #3b82f6);
+            border: none;
+            color: #fff;
+            font-size: 0.82rem;
+            font-weight: 600;
+            padding: 0.45rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(37,99,235,0.35);
+        }
+
+        .btn-novo-agend:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(37,99,235,0.45);
+        }
+
+        /* ── Dias da semana ───────────────────────────────────────── */
+        .cal-weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            background: #f8fafd;
+            border-bottom: 1px solid #e9f0f8;
+        }
+
+        .cal-weekday {
+            padding: 0.6rem 0.25rem;
+            text-align: center;
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* ── Grade do calendário ──────────────────────────────────── */
+        .cal-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            border-left: 1px solid #e9f0f8;
+        }
+
+        .cal-cell {
+            min-height: 110px;
+            border-right: 1px solid #e9f0f8;
+            border-bottom: 1px solid #e9f0f8;
+            padding: 0.4rem;
+            position: relative;
+            cursor: default;
+            transition: background 0.15s;
+        }
+
+        .cal-cell:hover { background: #f8fafd; }
+
+        .cal-cell.other-month .day-num { color: #cbd5e1; }
+        .cal-cell.other-month { background: #fafbfd; }
+
+        .cal-cell.today { background: #eff6ff; }
+        .cal-cell.today .day-num {
+            background: #2563eb;
+            color: #fff;
+            border-radius: 50%;
+            width: 26px;
+            height: 26px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .day-num {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #475569;
+            margin-bottom: 0.25rem;
+            width: 26px;
+            height: 26px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cal-cell.clickable { cursor: pointer; }
+
+        /* ── Eventos no calendário ────────────────────────────────── */
+        .cal-event {
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 0.15rem 0.4rem;
+            border-radius: 5px;
+            margin-bottom: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            cursor: pointer;
+            transition: opacity 0.15s;
+            color: #fff;
+        }
+
+        .cal-event:hover { opacity: 0.82; }
+
+        .cal-more {
+            font-size: 0.67rem;
+            color: #94a3b8;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 0 0.2rem;
+        }
+
+        /* ── Mini agenda lateral ──────────────────────────────────── */
+        .agenda-side {
+            border-top: 1px solid #e9f0f8;
+            padding: 1.25rem 1.5rem;
+            background: #f8fafd;
+        }
+
+        .agenda-side h3 {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 0.75rem;
+        }
+
+        .ag-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.65rem 0.75rem;
+            border-radius: 10px;
+            margin-bottom: 0.5rem;
+            background: #fff;
+            border: 1px solid #e9f0f8;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .ag-item:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.07);
+            transform: translateX(3px);
+        }
+
+        .ag-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            margin-top: 3px;
+        }
+
+        .ag-info { flex: 1; min-width: 0; }
+
+        .ag-title {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: #1e293b;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .ag-meta {
+            font-size: 0.72rem;
+            color: #94a3b8;
+            margin-top: 2px;
+        }
+
+        .ag-status {
+            font-size: 0.67rem;
+            font-weight: 700;
+            padding: 0.15rem 0.5rem;
+            border-radius: 50px;
+            flex-shrink: 0;
+        }
+
+        .ag-status.agendado   { background: #eff6ff; color: #2563eb; }
+        .ag-status.confirmado { background: #f0fdf4; color: #16a34a; }
+        .ag-status.concluido  { background: #f5f3ff; color: #7c3aed; }
+        .ag-status.cancelado  { background: #fef2f2; color: #dc2626; }
+
+        /* ── Modal de agendamento ─────────────────────────────────── */
+        .modal-agenda .modal-content {
+            border-radius: 18px;
+            border: none;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.18);
+        }
+
+        .modal-agenda .modal-header {
+            background: linear-gradient(135deg, #071424 0%, #1a3a5c 100%);
+            border-radius: 18px 18px 0 0;
+            border-bottom: none;
+            padding: 1.25rem 1.5rem;
+        }
+
+        .modal-agenda .modal-title {
+            color: #fff;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .modal-agenda .btn-close { filter: invert(1); opacity: 0.7; }
+
+        .modal-agenda .modal-body { padding: 1.5rem; }
+
+        .modal-agenda .form-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #475569;
+            margin-bottom: 0.3rem;
+        }
+
+        .modal-agenda .form-control,
+        .modal-agenda .form-select {
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+            font-size: 0.85rem;
+            padding: 0.55rem 0.85rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .modal-agenda .form-control:focus,
+        .modal-agenda .form-select:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59,130,246,0.12);
+        }
+
+        .cor-picker {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .cor-opt {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 3px solid transparent;
+            transition: all 0.15s;
+        }
+
+        .cor-opt.selected,
+        .cor-opt:hover { border-color: #1e293b; transform: scale(1.15); }
+
+        .modal-agenda .modal-footer {
+            border-top: 1px solid #f1f5f9;
+            padding: 1rem 1.5rem;
+            gap: 0.5rem;
+        }
+
+        .btn-salvar-ag {
+            background: linear-gradient(135deg, #2563eb, #3b82f6);
+            border: none;
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.85rem;
+            padding: 0.55rem 1.25rem;
+            border-radius: 10px;
+            transition: all 0.2s;
+        }
+
+        .btn-salvar-ag:hover { opacity: 0.9; transform: translateY(-1px); }
+
+        .btn-excluir-ag {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #dc2626;
+            font-weight: 600;
+            font-size: 0.85rem;
+            padding: 0.55rem 1.25rem;
+            border-radius: 10px;
+            transition: all 0.2s;
+        }
+
+        .btn-excluir-ag:hover { background: #fee2e2; }
+
+        /* ── Toast notificação ────────────────────────────────────── */
+        .ag-toast {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            background: #1e293b;
+            color: #fff;
+            padding: 0.75rem 1.25rem;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+            z-index: 9999;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.35s ease;
+            pointer-events: none;
+        }
+
+        .ag-toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ── Loading spinner ──────────────────────────────────────── */
+        .cal-loading {
+            display: none;
+            position: absolute;
+            inset: 0;
+            background: rgba(255,255,255,0.7);
+            z-index: 10;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0 0 20px 20px;
+        }
+
+        .cal-loading.show { display: flex; }
+
         /* ── Responsive ───────────────────────────────────────────── */
         @media (max-width: 576px) {
             .welcome-hero {
                 padding: 1.75rem 1.25rem;
             }
+            .cal-cell { min-height: 70px; }
+            .cal-event { font-size: 0.62rem; }
         }
     </style>
 </head>
@@ -315,7 +699,7 @@ if (!isset($_SESSION['usuario_id'])){
 
             <!-- Quick Access -->
             <p class="section-title"><i class="fa fa-th-large" style="margin-right:6px; color:#2563eb;"></i> Acesso Rápido</p>
-            <div class="row g-3">
+            <div class="row g-3 mb-2">
                 <div class="col-12 col-sm-6 col-lg-3">
                     <a href="./src/pages/cadcli/CadCliteste.php" class="quick-card">
                         <div class="quick-icon blue"><i class="fa fa-users"></i></div>
@@ -354,13 +738,139 @@ if (!isset($_SESSION['usuario_id'])){
                 </div>
             </div>
 
+            <!-- ══════════════════════════════════════════════════════
+                 AGENDA DE ATENDIMENTOS
+            ══════════════════════════════════════════════════════ -->
+            <div class="agenda-wrapper position-relative mt-4">
+
+                <!-- Loading overlay -->
+                <div class="cal-loading" id="calLoading">
+                    <div class="spinner-border text-primary" role="status" style="width:2rem;height:2rem;"></div>
+                </div>
+
+                <!-- Header -->
+                <div class="cal-header">
+                    <h2><i class="fa fa-calendar" style="color:#60a5fa;"></i> Agenda de Atendimentos</h2>
+                    <div class="cal-nav">
+                        <button class="cal-nav-btn" id="btnPrevMonth" title="Mês anterior">
+                            <i class="fa fa-chevron-left"></i>
+                        </button>
+                        <div class="cal-month-label" id="calMonthLabel">—</div>
+                        <button class="cal-nav-btn" id="btnNextMonth" title="Próximo mês">
+                            <i class="fa fa-chevron-right"></i>
+                        </button>
+                    </div>
+                    <button class="btn-novo-agend" id="btnNovoAgend">
+                        <i class="fa fa-plus"></i> Novo Agendamento
+                    </button>
+                </div>
+
+                <!-- Dias da semana -->
+                <div class="cal-weekdays">
+                    <div class="cal-weekday">Dom</div>
+                    <div class="cal-weekday">Seg</div>
+                    <div class="cal-weekday">Ter</div>
+                    <div class="cal-weekday">Qua</div>
+                    <div class="cal-weekday">Qui</div>
+                    <div class="cal-weekday">Sex</div>
+                    <div class="cal-weekday">Sáb</div>
+                </div>
+
+                <!-- Grade dos dias -->
+                <div class="cal-grid" id="calGrid"></div>
+
+                <!-- Mini-lista do mês -->
+                <div class="agenda-side">
+                    <h3><i class="fa fa-list-ul" style="color:#2563eb; margin-right:6px;"></i> Agendamentos do mês</h3>
+                    <div id="agendaList">
+                        <p class="text-muted" style="font-size:0.82rem;">Nenhum agendamento encontrado.</p>
+                    </div>
+                </div>
+            </div>
+
         </div><!-- /.main -->
     </div><!-- /.wrapper -->
+
+    <!-- Toast -->
+    <div class="ag-toast" id="agToast"></div>
+
+    <!-- ══════════════════════════════════════════════════════════════
+         MODAL — NOVO / EDITAR AGENDAMENTO
+    ══════════════════════════════════════════════════════════════ -->
+    <div class="modal fade modal-agenda" id="modalAgenda" tabindex="-1" aria-labelledby="modalAgendaLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalAgendaLabel">
+                        <i class="fa fa-calendar-plus-o" style="margin-right:6px;"></i> Novo Agendamento
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="agId">
+
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <label class="form-label" for="agTitulo">Título / Serviço *</label>
+                            <input type="text" class="form-control" id="agTitulo" placeholder="Ex: Consulta de rotina">
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label" for="agCliente">Cliente *</label>
+                            <input type="text" class="form-control" id="agCliente" placeholder="Nome do cliente">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label" for="agInicio">Data / Hora início *</label>
+                            <input type="datetime-local" class="form-control" id="agInicio">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label" for="agFim">Data / Hora fim *</label>
+                            <input type="datetime-local" class="form-control" id="agFim">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label" for="agStatus">Status</label>
+                            <select class="form-select" id="agStatus">
+                                <option value="agendado">Agendado</option>
+                                <option value="confirmado">Confirmado</option>
+                                <option value="concluido">Concluído</option>
+                                <option value="cancelado">Cancelado</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Cor</label>
+                            <div class="cor-picker" id="corPicker">
+                                <div class="cor-opt selected" data-cor="#2563eb" style="background:#2563eb;" title="Azul"></div>
+                                <div class="cor-opt" data-cor="#16a34a" style="background:#16a34a;" title="Verde"></div>
+                                <div class="cor-opt" data-cor="#9333ea" style="background:#9333ea;" title="Roxo"></div>
+                                <div class="cor-opt" data-cor="#ea580c" style="background:#ea580c;" title="Laranja"></div>
+                                <div class="cor-opt" data-cor="#dc2626" style="background:#dc2626;" title="Vermelho"></div>
+                                <div class="cor-opt" data-cor="#0891b2" style="background:#0891b2;" title="Ciano"></div>
+                                <div class="cor-opt" data-cor="#b45309" style="background:#b45309;" title="Âmbar"></div>
+                                <div class="cor-opt" data-cor="#475569" style="background:#475569;" title="Cinza"></div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label" for="agDescricao">Observações</label>
+                            <textarea class="form-control" id="agDescricao" rows="3" placeholder="Detalhes adicionais..."></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-excluir-ag d-none" id="btnExcluirAg">
+                        <i class="fa fa-trash"></i> Excluir
+                    </button>
+                    <button type="button" class="btn btn-light" style="border-radius:10px;" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn-salvar-ag" id="btnSalvarAg">
+                        <i class="fa fa-check"></i> Salvar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     <script src="Paginas/Script.js"></script>
     <script>
-        // Live clock in the hero
+        // ── Live clock in the hero ─────────────────────────────────────
         function updateTime() {
             const now = new Date();
             const options = {

@@ -229,7 +229,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                 <li class="sidebar-item">
                     <a href="#" class="sidebar-link has-dropdown collapsed" data-bs-toggle="collapse" data-bs-target="#multi-Micelaneas" aria-expanded="false" aria-controls="multi">
                         <i class="lni lni-folder-1"></i>
-                        <span>Micelaneas</span>
+                        <span>Miscelaneas</span>
                     </a>
                     <ul id="multi-Micelaneas" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                         <li class="sidebar-item">
