@@ -1,35 +1,24 @@
 <?php
 
-session_start();
-
-if (!isset($_SESSION['usuario_id'])){
-    header('location: src/pages/PagLogin.php');
-    exit;
-}
-
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Início — Surubins Code</title>
-
-    <!-- Google Fonts -->
+    <title>Cadastro de Usuários</title>
+    
+    <!-- Google Fonts for Premium Look -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-    <!-- Bootstrap -->
+    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
-    <!-- LineIcons -->
     <link rel="stylesheet" href="https://cdn.lineicons.com/5.0/lineicons.css">
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!-- Shared styles -->
-    <link rel="stylesheet" href="Paginas/style.css?v=<?= time() ?>">
-
+    <link rel="stylesheet" href="../../../Paginas/style.css?v=<?= time() ?>">
     <style>
         /* ── Dashboard-specific overrides ─────────────────────────── */
         body {
@@ -664,185 +653,153 @@ if (!isset($_SESSION['usuario_id'])){
     </style>
 </head>
 <body>
-    <div class="wrapper">
-        <?php //include 'src/Comum/sidebar.php'; ?>
+    <?php include '../../comum/navibar.php'; ?>
+    
+</body>
+<!-- ══════════════════════════════════════════════════════
+                 AGENDA DE ATENDIMENTOS
+            ══════════════════════════════════════════════════════ -->
+            <div class="agenda-wrapper position-relative mt-4">
 
-        <div class="main p-3 p-md-4">
+                <!-- Loading overlay -->
+                <div class="cal-loading" id="calLoading">
+                    <div class="spinner-border text-primary" role="status" style="width:2rem;height:2rem;"></div>
+                </div>
 
-            <!-- Welcome Hero -->
-            <div class="welcome-hero">
-                <div class="d-flex align-items-start justify-content-between flex-wrap gap-3">
-                    <div>
-                        <div class="welcome-badge">
-                            <span></span> Online
-                        </div>
-                        <h1>Olá, <?= htmlspecialchars($_SESSION['usuario_nome'] ?? 'Usuário') ?>! 👋</h1>
-                        <p>Bem-vindo de volta ao painel de gestão.</p>
-                        <p class="hero-time" id="heroTime"></p>
+                <!-- Header -->
+                <div class="cal-header">
+                    <h2><i class="fa fa-calendar" style="color:#60a5fa;"></i> Agenda de Atendimentos</h2>
+                    <div class="cal-nav">
+                        <button class="cal-nav-btn" id="btnPrevMonth" title="Mês anterior">
+                            <i class="fa fa-chevron-left"></i>
+                        </button>
+                        <div class="cal-month-label" id="calMonthLabel">—</div>
+                        <button class="cal-nav-btn" id="btnNextMonth" title="Próximo mês">
+                            <i class="fa fa-chevron-right"></i>
+                        </button>
                     </div>
-                    <div class="d-flex flex-column align-items-center gap-2">
-                        <div class="hero-logo">
-                            <img src="./img/logo.png" class="mb-1" height="60" width="60">
-                        </div>
-                        <a href="src/pages/logout.php" class="btn-logout" id="btnLogout" title="Sair do sistema">
-                            <i class="fa fa-sign-out"></i> Sair
-                        </a>
+                    <button class="btn-novo-agend" id="btnNovoAgend">
+                        <i class="fa fa-plus"></i> Novo Agendamento
+                    </button>
+                </div>
+
+                <!-- Dias da semana -->
+                <div class="cal-weekdays">
+                    <div class="cal-weekday">Dom</div>
+                    <div class="cal-weekday">Seg</div>
+                    <div class="cal-weekday">Ter</div>
+                    <div class="cal-weekday">Qua</div>
+                    <div class="cal-weekday">Qui</div>
+                    <div class="cal-weekday">Sex</div>
+                    <div class="cal-weekday">Sáb</div>
+                </div>
+
+                <!-- Grade dos dias -->
+                <div class="cal-grid" id="calGrid"></div>
+
+                <!-- Mini-lista do mês -->
+                <div class="agenda-side">
+                    <h3><i class="fa fa-list-ul" style="color:#2563eb; margin-right:6px;"></i> Agendamentos do mês</h3>
+                    <div id="agendaList">
+                        <p class="text-muted" style="font-size:0.82rem;">Nenhum agendamento encontrado.</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Stat Cards -->
-            <div class="row g-3 mb-4">
-                <div class="col-6 col-lg-3">
-                    <div class="stat-card">
-                        <div class="stat-icon blue"><i class="fa fa-users"></i></div>
-                        <div class="stat-label">Clientes</div>
-                        <div class="stat-value">—</div>
-                        <div class="stat-sub">Cadastros ativos</div>
-                    </div>
-                </div>
-                <div class="col-6 col-lg-3">
-                    <div class="stat-card">
-                        <div class="stat-icon green"><i class="fa fa-cubes"></i></div>
-                        <div class="stat-label">Produtos</div>
-                        <div class="stat-value">—</div>
-                        <div class="stat-sub">Em estoque</div>
-                    </div>
-                </div>
-                <div class="col-6 col-lg-3">
-                    <div class="stat-card">
-                        <div class="stat-icon purple"><i class="fa fa-truck"></i></div>
-                        <div class="stat-label">Fornecedores</div>
-                        <div class="stat-value">—</div>
-                        <div class="stat-sub">Cadastrados</div>
-                    </div>
-                </div>
-                <div class="col-6 col-lg-3">
-                    <div class="stat-card">
-                        <div class="stat-icon orange"><i class="fa fa-user-circle"></i></div>
-                        <div class="stat-label">Usuários</div>
-                        <div class="stat-value">—</div>
-                        <div class="stat-sub">No sistema</div>
-                    </div>
-                </div>
-            </div>
+        </div><!-- /.main -->
+    </div><!-- /.wrapper -->
 
-            <!-- Quick Access -->
-            <p class="section-title"><i class="fa fa-th-large" style="margin-right:6px; color:#2563eb;"></i> Acesso Rápido</p>
-            <div class="row g-3 mb-2">
-                <div class="col-12 col-sm-6 col-lg-3">
-                    <a href="./src/pages/Agend/agend.php" class="quick-card">
-                        <div class="quick-icon blue"><i class="fa fa-calendar"></i></div>
-                        <div>
-                            <p class="quick-name">Agendamento</p>
-                            <p class="quick-desc">Agenda e compromissos</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-12 col-sm-6 col-lg-3">
-                    <a href="./src/pages/os/OS.php" class="quick-card">
-                        <div class="quick-icon green"><i class="fa fa-file-text-o"></i></div>
-                        <div>
-                            <p class="quick-name">Ordem de Serviço</p>
-                            <p class="quick-desc">Serviços abertos</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-12 col-sm-6 col-lg-3">
-                    <a href="./src/pages/cadforn/CadForn.php" class="quick-card">
-                        <div class="quick-icon purple"><i class="fa fa-truck"></i></div>
-                        <div>
-                            <p class="quick-name">Fornecedores</p>
-                            <p class="quick-desc">Fornecedores cadastrados</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-12 col-sm-6 col-lg-3">
-                    <a href="./src/pages/config/configurador.php" class="quick-card">
-                        <div class="quick-icon orange"><i class="fa fa-cogs"></i></div>
-                        <div>
-                            <p class="quick-name">Configurador</p>
-                            <p class="quick-desc">Configurador do sistema</p>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="row g-3 mb-2">
-                <div class="col-12 col-sm-6 col-lg-3">
-                    <a href="./src/pages/fin/fin.php" class="quick-card">
-                        <div class="quick-icon blue"><i class="fa fa-dollar"></i></div>
-                        <div>
-                            <p class="quick-name">Fluxo de Caixa</p>
-                            <p class="quick-desc">Contas a pagar e receber</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-12 col-sm-6 col-lg-3">
-                    <a href="./src/pages/vendas/Vendas.php" class="quick-card">
-                        <div class="quick-icon green"><i class="fa fa-check"></i></div>
-                        <div>
-                            <p class="quick-name">Vendas</p>
-                            <p class="quick-desc">Vendas realizadas</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-12 col-sm-6 col-lg-3">
-                    <a href="./src/pages/cadcli/CadCliteste.php" class="quick-card">
-                        <div class="quick-icon purple"><i class="fa fa-users"></i></div>
-                        <div>
-                            <p class="quick-name">Clientes</p>
-                            <p class="quick-desc">Cadastro e manutenção</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-12 col-sm-6 col-lg-3">
-                    <a href="./src/pages/cadusu/CadUsu.php" class="quick-card">
-                        <div class="quick-icon orange"><i class="fa fa-user"></i></div>
-                        <div>
-                            <p class="quick-name">Usuários</p>
-                            <p class="quick-desc">Cadastro de usuários</p>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="row g-3 mb-2">
-                <div class="col-12 col-sm-6 col-lg-3">
-                    <a href="./src/pages/estoque/Estoque.php" class="quick-card">
-                        <div class="quick-icon blue"><i class="fa fa-cubes"></i></div>
-                        <div>
-                            <p class="quick-name">Estoque</p>
-                            <p class="quick-desc">Estoque e valores</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-12 col-sm-6 col-lg-3">
-                    <a href="./src/pages/cadcom/compras.php" class="quick-card">
-                        <div class="quick-icon green"><i class="fa fa-shopping-cart"></i></div>
-                        <div>
-                            <p class="quick-name">Compras</p>
-                            <p class="quick-desc">Compras realizadas</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-12 col-sm-6 col-lg-3">
-                    <a href="./src/pages/cadprod/cadProd.php" class="quick-card">
-                        <div class="quick-icon purple"><i class="fa fa-cubes"></i></div>
-                        <div>
-                            <p class="quick-name">Produtos</p>
-                            <p class="quick-desc">Cadastro de produtos</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-12 col-sm-6 col-lg-3">
-                    <a href="./src/pages/perfil/perfil.php" class="quick-card">
-                        <div class="quick-icon orange"><i class="fa fa-user-o"></i></div>
-                        <div>
-                            <p class="quick-name">Perfil</p>
-                            <p class="quick-desc">Perfil de usuário</p>
-                        </div>
-                    </a>
-                </div>
-            </div>
+    <!-- Toast -->
+    <div class="ag-toast" id="agToast"></div>
 
-           
+    <!-- ══════════════════════════════════════════════════════════════
+         MODAL — NOVO / EDITAR AGENDAMENTO
+    ══════════════════════════════════════════════════════════════ -->
+    <div class="modal fade modal-agenda" id="modalAgenda" tabindex="-1" aria-labelledby="modalAgendaLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalAgendaLabel">
+                        <i class="fa fa-calendar-plus-o" style="margin-right:6px;"></i> Novo Agendamento
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="agId">
+
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <label class="form-label" for="agTitulo">Título / Serviço *</label>
+                            <input type="text" class="form-control" id="agTitulo" placeholder="Ex: Consulta de rotina">
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label" for="agCliente">Cliente *</label>
+                            <input type="text" class="form-control" id="agCliente" placeholder="Nome do cliente">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label" for="agInicio">Data / Hora início *</label>
+                            <input type="datetime-local" class="form-control" id="agInicio">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label" for="agFim">Data / Hora fim *</label>
+                            <input type="datetime-local" class="form-control" id="agFim">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label" for="agStatus">Status</label>
+                            <select class="form-select" id="agStatus">
+                                <option value="agendado">Agendado</option>
+                                <option value="confirmado">Confirmado</option>
+                                <option value="concluido">Concluído</option>
+                                <option value="cancelado">Cancelado</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Cor</label>
+                            <div class="cor-picker" id="corPicker">
+                                <div class="cor-opt selected" data-cor="#2563eb" style="background:#2563eb;" title="Azul"></div>
+                                <div class="cor-opt" data-cor="#16a34a" style="background:#16a34a;" title="Verde"></div>
+                                <div class="cor-opt" data-cor="#9333ea" style="background:#9333ea;" title="Roxo"></div>
+                                <div class="cor-opt" data-cor="#ea580c" style="background:#ea580c;" title="Laranja"></div>
+                                <div class="cor-opt" data-cor="#dc2626" style="background:#dc2626;" title="Vermelho"></div>
+                                <div class="cor-opt" data-cor="#0891b2" style="background:#0891b2;" title="Ciano"></div>
+                                <div class="cor-opt" data-cor="#b45309" style="background:#b45309;" title="Âmbar"></div>
+                                <div class="cor-opt" data-cor="#475569" style="background:#475569;" title="Cinza"></div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label" for="agDescricao">Observações</label>
+                            <textarea class="form-control" id="agDescricao" rows="3" placeholder="Detalhes adicionais..."></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-excluir-ag d-none" id="btnExcluirAg">
+                        <i class="fa fa-trash"></i> Excluir
+                    </button>
+                    <button type="button" class="btn btn-light" style="border-radius:10px;" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn-salvar-ag" id="btnSalvarAg">
+                        <i class="fa fa-check"></i> Salvar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="Paginas/Script.js"></script>
+    <script>
+        // ── Live clock in the hero ─────────────────────────────────────
+        function updateTime() {
+            const now = new Date();
+            const options = {
+                weekday: 'long', day: '2-digit',
+                month: 'long', year: 'numeric',
+                hour: '2-digit', minute: '2-digit'
+            };
+            document.getElementById('heroTime').textContent =
+                now.toLocaleDateString('pt-BR', options);
+        }
+        updateTime();
+        setInterval(updateTime, 60000);
+    </script>
 </html>
